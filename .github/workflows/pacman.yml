@@ -19,9 +19,12 @@ jobs:
           theme: github-dark  # Opções: github, github-dark, gitlab, gitlab-dark
           
       - name: Commit e Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add dist/pacman-contribution-graph.svg
-          git commit -m "Atualizar gráfico de contribuição Pac-Man"
-          git push
+          git commit -m "Atualizar gráfico de contribuição Pac-Man" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git push origin main
