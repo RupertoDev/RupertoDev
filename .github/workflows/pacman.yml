@@ -10,22 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Gerar Gráfico de Contribuição Pac-Man
         uses: AndreRuperto/pacman-contribution-graph@main
         with:
           github_user_name: ${{ github.repository_owner }}
           github_token: ${{ secrets.PAT_TOKEN }}
           theme: github-dark  # Opções: github, github-dark, gitlab, gitlab-dark
-          
+
       - name: Commit e Push
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add dist/pacman-contribution-graph.svg
           git commit -m "Atualizar gráfico de contribuição Pac-Man" || echo "No changes to commit"
           git push origin main
-
