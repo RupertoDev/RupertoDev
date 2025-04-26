@@ -1,0 +1,27 @@
+name: Atualizar Pac-Man Contribution
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Atualiza diariamente à meia-noite
+  workflow_dispatch:     # Ou execute manualmente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Gerar Gráfico de Contribuição Pac-Man
+        uses: AndreRuperto/pacman-contribution-graph@v1
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          github_token: ${{ secrets.PAT_TOKEN }}
+          theme: github-dark  # Opções: github, github-dark, gitlab, gitlab-dark
+          
+      - name: Commit e Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add dist/pacman-contribution-graph.svg
+          git commit -m "Atualizar gráfico de contribuição Pac-Man"
+          git push
