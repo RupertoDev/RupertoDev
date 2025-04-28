@@ -1,40 +1,30 @@
 name: Atualizar Pac-Man Contribution
+
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 3 * * *"
   workflow_dispatch:
+
 jobs:
   build:
     permissions:
       contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
+
     steps:
       - uses: actions/checkout@v3
-      
-      # Criar diretório dist apenas se não existir
-      - name: Verificar e criar diretório dist se necessário
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "Criando diretório dist pois não existe"
-            mkdir -p dist
-          else
-            echo "Diretório dist já existe"
-          fi
-      
+
+      - name: Criar diretório dist
+        run: mkdir -p dist
+
       - name: Gerar Gráfico de Contribuição Pac-Man
         uses: AndreRuperto/svg-pacman-contributions@main
         with:
           github_user_name: ${{ github.repository_owner }}
           github_token: ${{ secrets.PAT_TOKEN }}
           theme: github-dark
-          
-      # Debug - verificar o que foi gerado
-      - name: Listar conteúdo do diretório dist
-        run: |
-          echo "Conteúdo do diretório dist:"
-          ls -la dist || echo "Erro ao listar diretório dist"
-          
+
       - name: Publicar pacman-contribution-graph.svg na branch output
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
