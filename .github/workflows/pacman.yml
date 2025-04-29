@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Gerar gráfico de contribuições estilo Pac-Man
-        uses: AndreRuperto/svg-pacman-contributions@main
+        uses: AndreRuperto/svg-pacman-contributions@v1.0.1
         with:
           github_user_name: ${{ github.repository_owner }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
