@@ -2,7 +2,7 @@ name: Atualizar Pac-Man Contribution
 
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -15,17 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Criar diretório dist
-        run: mkdir -p dist
-
-      - name: Gerar Gráfico de Contribuição Pac-Man
-        uses: AndreRuperto/svg-pacman-contributions@main
+      - name: Gerar gráfico de contribuições estilo Pac-Man
+        uses: AndreRuperto/pacman-contribution-graph@v1.0.0
         with:
           github_user_name: ${{ github.repository_owner }}
-          github_token: ${{ secrets.PAT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           theme: github-dark
 
-      - name: Publicar pacman-contribution-graph.svg na branch output
+      - name: Publicar SVG na branch output
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
