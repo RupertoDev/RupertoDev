@@ -21,8 +21,13 @@ jobs:
           github_user_name: ${{ github.repository_owner }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           theme: github-dark
-      - name: Garantir que a pasta dist existe
-        run: mkdir -p dist
+
+      - name: 📂 Verificar conteúdo da pasta dist
+        run: ls -lh dist
+
+      - name: 📄 Visualizar conteúdo do SVG
+        run: head -n 20 dist/pacman-contribution-graph-dark.svg
+
       - name: Publicar SVG na branch output
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
