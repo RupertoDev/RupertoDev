@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Criar diretório dist
+         run: mkdir -p dist
+
       - name: Gerar gráfico de contribuições estilo Pac-Man
         uses: AndreRuperto/svg-pacman-contributions@main
         with:
