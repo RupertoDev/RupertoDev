@@ -24,6 +24,7 @@ jobs:
           github_user_name: ${{ github.repository_owner }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           theme: github-dark
+          output_directory: dist
 
       - name: 📂 Verificar conteúdo da pasta dist
         run: ls -lh dist
